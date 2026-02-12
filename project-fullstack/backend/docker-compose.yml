@@ -1,0 +1,22 @@
+services:
+  
+  redis:
+    image: redis:7
+    ports:
+      - 6379
+
+  api:
+    ports:
+      - 8000
+
+  artemis-file-worker:
+    depends_on:
+      - redis
+
+  artemis-review-worker:
+    depends_on:
+      - redis
+
+  artemis-watcher:
+    depends_on:
+      - redis
