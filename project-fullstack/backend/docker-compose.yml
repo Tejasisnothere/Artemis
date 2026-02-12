@@ -2,21 +2,20 @@ services:
   
   redis:
     image: redis:7
+    container_name: artemis-redis
     ports:
-      - 6379
+      - "6379:6379"
+    restart: unless-stopped
 
+  
   api:
+    build: .
+    container_name: artemis-api
+    command: npm run dev
     ports:
-      - 8000
-
-  artemis-file-worker:
+      - "8000:8000"
+    env_file:
+      - .env
     depends_on:
       - redis
-
-  artemis-review-worker:
-    depends_on:
-      - redis
-
-  artemis-watcher:
-    depends_on:
-      - redis
+    restart: unless-stopped
