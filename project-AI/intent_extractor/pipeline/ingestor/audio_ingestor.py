@@ -10,9 +10,10 @@ class AudioIngestor:
         
        
 
-    def loadURL(self):
-        url = self.url
-        resp = requests.get(url=url)
+    async def loadURL(self):
+
+        
+        resp = await requests.get(self.url)
         
         flag = True
         audio_path = None
