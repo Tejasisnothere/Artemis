@@ -62,13 +62,16 @@ class Transcribe:
             time.sleep(5)
 
 
-
+        
         if status == "succeeded":
+            extract = ""
             for turn in output["turnLevelTranscription"]:
                 words = turn["text"].split()
                 for word in words:
+                    extract += word + " "
                     print(word, end=" ", flush=True)
                     time.sleep(0.08)
 
             print()
 
+            return extract
