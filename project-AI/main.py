@@ -2,6 +2,8 @@ from fastapi import FastAPI, Request
 import pandas as pd
 from intent_extractor.pipeline.ingestor.text_ingestor import TextIngestor
 from intent_extractor.pipeline.model.audio_transcription import Transcribe
+from intent_extractor.pipeline.model.trans import Trans
+from langdetect import detect
 
 app = FastAPI()
 
@@ -26,7 +28,16 @@ async def transcribe(request: Request):
    
     T = Transcribe(url)
 
-    T.transcribe_text()
+    extract = T.transcribe_text()
 
-    
+    if(detect(extract[:int(len(extract)/2)]) == 'en'):
+        pass
+    else:
+
+
+        print("\n\n\n")
+        
+        transtext = Trans(extract)
+
+        await transtext.translate_text()
     
